@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h2>Sum of values in node</h2>
+    <p>Return the sum of values, in certail level in the node.</p>
+    <p id="demo"></p>
+    <script>
+      // n variable represents the level we are looking for
+      let level = 1, sum = 0, n = 4;
+      
+      let node = {
+          value: 1,
+          children: [{ //0 level
+              value: 2,
+              children: [{ //1 level
+                  value: 9,
+                  children: [{ //2 level
+                    value: 4,
+                    children:[{ //3 level
+                          value: 596,
+                          children: [] //4 level
+                      }]
+                  }]
+              }]
+          },
+          {
+            value: 5,
+            children: [{ //1 level
+                value: 1,
+                children: [{ //2 level
+                      value: 66,
+                      children: [] //3 level
+                  }]
+              }
+            ]
+          }
+        ]
+      }
+      
+      function countValues(node, n){
+        //Determine level
+        if(n === 0) { sum = node.value }
+        else {
+        	//Iterate through node
+          node.children.forEach(child => {
+      
+            //Check level
+            if(level === n){ sum += child.value; }
+      
+            //Increment level
+            if(child.children.length === 1){ level++; }
+            else { level = 1; }
+      
+            //Recursion
+            countValues(child, n);
+          })
+        }
+      }
+      
+      countValues(node, n);
+      document.getElementById("demo").innerHTML = "Sum is: " + sum, "Level is: " + n;
+    </script>
+  </body>
+</html>
